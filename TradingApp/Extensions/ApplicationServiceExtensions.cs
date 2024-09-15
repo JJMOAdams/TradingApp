@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using TradingApp.Contexts;
+using TradingApp.Interfaces;
+using TradingApp.Services;
 
 namespace TradingApp.Extensions
 {
@@ -8,7 +10,6 @@ namespace TradingApp.Extensions
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
         {
             services.AddHttpContextAccessor();
-            services.AddMemoryCache();
             services.AddDbContext<DataContext>(options =>
             {
                 options.UseSqlServer(config.GetConnectionString("DefaultConnection"), sqlServerOptionsAction: sqlOptions =>
@@ -39,6 +40,10 @@ namespace TradingApp.Extensions
                 client.DefaultRequestHeaders.Add("APCA-API-KEY-ID", config["Alpaca:Key"]);
                 client.DefaultRequestHeaders.Add("APCA-API-SECRET-KEY", config["Alpaca:Secret"]);
             });
+
+            // Scoped Services
+            services.AddScoped<IToTPService, ToTPService>();
+            services.AddScoped<ITokenService, TokenService>();
 
             return services;
         }        

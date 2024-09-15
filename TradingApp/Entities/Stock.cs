@@ -4,7 +4,6 @@ namespace TradingApp.Entities
     {
         public long Id { get; set; }
         public required string Symbol { get; set; }
-        public required string Name { get; set; }
         public DateTime BarDateTime { get; set; }
         public required string DayOfWeek { get; set; } // Monday, Tuesday, etc.
         public decimal Open { get; set; }
