@@ -11,6 +11,10 @@ namespace TradingApp.Contexts
         IdentityRoleClaim<int>, IdentityUserToken<int>>
         (options)
     {
+
+        public DbSet<Stock> Stocks { get; set; }
+        public DbSet<StockWatch> StockWatches { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

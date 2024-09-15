@@ -31,6 +31,15 @@ namespace TradingApp.Extensions
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             
+            //Scopable Contexts
+            services.AddHttpClient<AlpacaMDContext>(client =>
+            {
+                client.BaseAddress = new Uri("https://data.alpaca.markets/v2/stocks/bars");
+                client.DefaultRequestHeaders.Add("accept", "application/json");
+                client.DefaultRequestHeaders.Add("APCA-API-KEY-ID", config["Alpaca:Key"]);
+                client.DefaultRequestHeaders.Add("APCA-API-SECRET-KEY", config["Alpaca:Secret"]);
+            });
+
             return services;
         }        
     }
